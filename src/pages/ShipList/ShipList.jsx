@@ -19,7 +19,7 @@ export function ShipList(){
       {shipList.length ?
         <>
           {shipList.map((ship, idx) =>(
-            <Link className="ship-tile" to='/'>
+            <Link key={idx} className="ship-tile" to='/ship' state={{ship}}>
               <div>
                 {ship.name}
               </div>
