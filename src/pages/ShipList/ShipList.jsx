@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react"
+import { Link } from "react-router-dom";
+import { getStarshipList } from "../../services/api-calls";
 
 
 export function ShipList(){
@@ -6,14 +8,29 @@ export function ShipList(){
 
   useEffect(()=>{
     const fetchShips = async()=>{
-      //api call here
+      const shipData = await getStarshipList();
+      setShipList(shipData.results);
     }
     fetchShips();
   }, [])
 
   return(
-    <>
-      <h2>Starships here!</h2>
-    </>
+    <main>
+      {shipList.length ?
+        <>
+          {shipList.map((ship, idx) =>(
+            <Link className="ship-tile" to='/'>
+              <div>
+                {ship.name}
+              </div>
+            </Link>
+          ))}
+        </>
+        :
+        <>
+          <h3 className="loading">Loading...</h3>
+        </>
+      }
+    </main>
   )
 }
